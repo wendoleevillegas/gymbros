@@ -43,7 +43,7 @@
 - **{{MEMBER_3}}:** Ricardo Pasillas
 - **{{MEMBER_4}}:** Ali Farooq
 - **{{MEMBER_5}}:** {{role}}
-- **{{MEMBER_6}}:** {{role}}
+- **{{MEMBER_6}}:** Jesus Lopez
 - **{{MEMBER_7}}:** {{role}}
 
 ## Risk Assessment
