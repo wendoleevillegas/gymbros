@@ -40,7 +40,7 @@
 ## Team Roles
 - **{{PM_NAME}}:** Project Manager, {{additional_responsibilities}}
 - **{{MEMBER_2}}:** Bibhav Shrestha
-- **{{MEMBER_3}}:** {{role}}
+- **{{MEMBER_3}}:** Ricardo Pasillas
 - **{{MEMBER_4}}:** {{role}}
 - **{{MEMBER_5}}:** {{role}}
 
