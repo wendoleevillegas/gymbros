@@ -44,7 +44,7 @@
 - **{{MEMBER_4}}:** Ali Farooq
 - **{{MEMBER_5}}:** {{role}}
 - **{{MEMBER_6}}:** Jesus Lopez
-- **{{MEMBER_7}}:** {{role}}
+- **{{MEMBER_7}}:** Talal Aamer
 
 ## Risk Assessment
 **Technical Risks:** What could go wrong technically?
