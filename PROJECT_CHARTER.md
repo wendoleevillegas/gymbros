@@ -39,10 +39,12 @@
 
 ## Team Roles
 - **{{PM_NAME}}:** Project Manager, {{additional_responsibilities}}
-- **{{MEMBER_2}}:** {{role}} (e.g., Frontend Lead, Backend Lead, UI/UX, DevOps)
-- **{{MEMBER_3}}:** {{role}}
+- **{{MEMBER_2}}:** Bibhav Shrestha
+- **{{MEMBER_3}}:** Ricardo Pasillas
 - **{{MEMBER_4}}:** Ali Farooq
 - **{{MEMBER_5}}:** {{role}}
+- **{{MEMBER_6}}:** {{role}}
+- **{{MEMBER_7}}:** {{role}}
 
 ## Risk Assessment
 **Technical Risks:** What could go wrong technically?
