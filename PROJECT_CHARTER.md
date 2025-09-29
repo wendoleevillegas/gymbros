@@ -38,10 +38,10 @@
 **Week 15-16:** Demo preparation, documentation
 
 ## Team Roles
-- **{{PM_NAME}}:** Project Manager, {{additional_responsibilities}}
+- **{{Wendolee}}:** Project Manager, {{additional_responsibilities}}
 - **{{MEMBER_2}}:** {{role}} (e.g., Frontend Lead, Backend Lead, UI/UX, DevOps)
 - **{{MEMBER_3}}:** {{role}}
-- **{{MEMBER_4}}:** {{role}}
+- **{{MEMBER_4}}:** Ali
 - **{{MEMBER_5}}:** {{role}}
 
 ## Risk Assessment
