@@ -38,7 +38,7 @@
 **Week 15-16:** Demo preparation, documentation
 
 ## Team Roles
-- **{{PM_NAME}}:** Wendolee Villegas
+- **{{Wendolee Villegas}}:** Project Manager
 - **{{Bibhav Shrestha}}:** Member 1
 - **{{Ricardo Pasillas}}:** Member 2
 - **{{Ali Farooq}}:** Member 3
