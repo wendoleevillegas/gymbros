@@ -38,11 +38,13 @@
 **Week 15-16:** Demo preparation, documentation
 
 ## Team Roles
-- **{{PM_NAME}}:** Project Manager, {{additional_responsibilities}}
-- **{{MEMBER_2}}:** {{role}} (e.g., Frontend Lead, Backend Lead, UI/UX, DevOps)
-- **{{MEMBER_3}}:** {{role}}
-- **{{MEMBER_4}}:** {{role}}
-- **{{MEMBER_5}}:**  Jeph
+- **{{PM_NAME}}:** Wendolee Villegas
+- **{{Bibhav Shrestha}}:** Member 1
+- **{{Ricardo Pasillas}}:** Member 2
+- **{{Ali Farooq}}:** Member 3
+- **{{Jeph}}:** Member 4
+- **{{Jesus Lopez}}:** Member 5
+- **{{Talal Aamer}}:** Member 6
 
 ## Risk Assessment
 **Technical Risks:** What could go wrong technically?
