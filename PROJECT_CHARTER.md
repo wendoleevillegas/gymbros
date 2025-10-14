@@ -38,13 +38,13 @@
 **Week 15-16:** Demo preparation, documentation
 
 ## Team Roles
-- **{{PM_NAME}}:** Project Manager, {{additional_responsibilities}}
-- **{{MEMBER_2}}:** Bibhav Shrestha
-- **{{MEMBER_3}}:** Ricardo Pasillas
-- **{{MEMBER_4}}:** Ali Farooq
-- **{{MEMBER_5}}:** {{role}}
-- **{{MEMBER_6}}:** Jesus Lopez
-- **{{MEMBER_7}}:** Talal Aamer
+- **{{PM_NAME}}:** Wendolee Villegas
+- **{{Bibhav Shrestha}}:** Member 1
+- **{{Ricardo Pasillas}}:** Member 2
+- **{{Ali Farooq}}:** Member 3
+- **{{Jeph}}:** Member 4
+- **{{Jesus Lopez}}:** Member 5
+- **{{Talal Aamer}}:** Member 6
 
 ## Risk Assessment
 **Technical Risks:** What could go wrong technically?
