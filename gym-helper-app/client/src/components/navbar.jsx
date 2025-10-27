@@ -3,34 +3,63 @@ import { GiWeightLiftingUp } from "react-icons/gi";
 import { IoPersonOutline } from "react-icons/io5";
 import { HiHome } from "react-icons/hi";
 import { GrHistory } from "react-icons/gr";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
     <nav className="bg-white dark:bg-black text-black dark:text-white fixed bottom-0 left-0 w-full py-4 px-8 z-50">
       <ul className="list-none flex justify-between items-center w-[95%] p-0 m-0">
-        <li className = "Workout">
-          <Link to="/workout" className="flex flex-col items-center">
+        <li className="Workout">
+          <NavLink
+            to="/workout"
+            className={({ isActive }) =>
+              `flex flex-col items-center ${
+                isActive ? "text-[var(--primary)]" : ""
+              }`
+            }
+          >
             <GiWeightLiftingUp className="w-8 h-8 mb-1" />
             <span>Workout</span>
-          </Link>
+          </NavLink>
         </li>
-        <li className = "Profile">
-          <Link to="/profile" className="flex flex-col items-center">
+        <li className="Profile">
+          <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+              `flex flex-col items-center ${
+                isActive ? "text-[var(--primary)]" : ""
+              }`
+            }
+          >
             <IoPersonOutline className="w-8 h-8 mb-1" />
             <span>Profile</span>
-          </Link>
+          </NavLink>
         </li>
-        <li className = "Home">
-          <Link to="/" className="flex flex-col items-center">
+        <li className="Home">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `flex flex-col items-center ${
+                isActive ? "text-[var(--primary)]" : ""
+              }`
+            }
+          >
             <HiHome className="w-8 h-8 mb-1" />
             <span>Home</span>
-          </Link>
+          </NavLink>
         </li>
-        <li className = "History">
-          <Link to="/history" className="flex flex-col items-center">
+        <li className="History">
+          <NavLink
+            to="/history"
+            className={({ isActive }) =>
+              `flex flex-col items-center ${
+                isActive ? "text-[var(--primary)]" : ""
+              }`
+            }
+          >
             <GrHistory className="w-8 h-8 mb-1" />
             <span>History</span>
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </nav>
