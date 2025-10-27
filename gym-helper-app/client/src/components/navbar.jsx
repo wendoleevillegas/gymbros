@@ -14,7 +14,7 @@ export default function Navbar() {
             to="/workout"
             className={({ isActive }) =>
               `flex flex-col items-center ${
-                isActive ? "text-[var(--primary)]" : ""
+                isActive ? "text-(--primary)" : ""
               }`
             }
           >
@@ -27,7 +27,7 @@ export default function Navbar() {
             to="/profile"
             className={({ isActive }) =>
               `flex flex-col items-center ${
-                isActive ? "text-[var(--primary)]" : ""
+                isActive ? "text-(--primary)" : ""
               }`
             }
           >
@@ -40,7 +40,7 @@ export default function Navbar() {
             to="/"
             className={({ isActive }) =>
               `flex flex-col items-center ${
-                isActive ? "text-[var(--primary)]" : ""
+                isActive ? "text-(--primary)" : ""
               }`
             }
           >
@@ -53,7 +53,7 @@ export default function Navbar() {
             to="/history"
             className={({ isActive }) =>
               `flex flex-col items-center ${
-                isActive ? "text-[var(--primary)]" : ""
+                isActive ? "text-(--primary)" : ""
               }`
             }
           >
