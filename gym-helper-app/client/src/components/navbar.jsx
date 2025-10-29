@@ -5,7 +5,7 @@ import { GrHistory } from "react-icons/gr";
 
 const Navbar = () => {
     return (
-        <nav className="bg-white dark:bg-black text-black dark:text-white fixed bottom-0 left-0 w-full py-4 px-8 z-50">
+        <nav className="bg-white dark:bg-black text-black dark:text-white border-t border-black dark:border-white fixed bottom-0 left-0 w-full py-4 px-8 z-50">
             <ul className = "list-none flex justify-between items-center w-[95%] p-0 m-0">
                 <li className = "Workout">
                     <div className = "flex flex-col items-center">
