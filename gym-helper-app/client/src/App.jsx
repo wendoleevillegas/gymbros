@@ -7,28 +7,17 @@ import ModeToggle from './components/mode-toggle.jsx'
 import ProtectedRoute from './components/auth/ProtectedRoute'
 import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
 import AuthGate from './components/AuthGate'
+import { Outlet } from "react-router-dom";
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   return (
     <>
-     <Router>
+      <ModeToggle />
       <Navbar />
-      <ModeToggle/>
-      <Routes>
-        <Route path="/" element={<AuthGate isAuth={isAuth} setIsAuth={setIsAuth} />
-          }/>
-        <Route 
-          path="/Protected" //test route.
-            element=
-            {<ProtectedRoute isAuth={isAuth}>
-             <div className ='bg-white dark:bg-black text-black dark:text-white'>Protected Components go here</div>
-             </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </Router>
+      <Outlet context={{ isAuth, setIsAuth }}/>
+
     </>
   );
 }
 
-export default App
+export default App;

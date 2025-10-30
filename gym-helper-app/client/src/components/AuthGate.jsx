@@ -1,7 +1,9 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useOutletContext } from 'react-router-dom'
 
-function AuthGate({ setIsAuth }){
+function AuthGate(){
     const navigate = useNavigate();
+    const { setIsAuth } = useOutletContext();
+
     return (
     <>
       <div className='absolute top-4 right-4 bg-white dark:bg-black text-white dark:text-white p-4'>
