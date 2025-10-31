@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import connectDB from './db/index.js';
 import { app } from './app.js';
 import cors from 'cors';
+import passport from 'passport';
 
 const app = express();
 
@@ -11,6 +12,9 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 dotenv.config({
     path: './env'
