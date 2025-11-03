@@ -1,6 +1,6 @@
 import '../index.css';
 
-function LoginPage() {
+function LoginPage({homePage}) {
   return (
     <main className="h-screen bg-white landscape:bg-black flex items-center justify-center p-4">
       <div
@@ -33,17 +33,16 @@ function LoginPage() {
   <button
     type="button"
     aria-label="Sign in with Google"
-    onClick={() => console.log('you clicked me')}
+    onClick={homePage}
     className="
-      inline-flex items-center justify-center gap-3 rounded-2xl
+      inline-flex items-center justify-center gap-4 rounded-3xl
       px-5 lg:px-7 h-16 lg:h-20
+      bg-white text-zinc-700
       border-[5px] border-transparent
       [box-shadow:0_0_12px_6px_rgba(0,0,0,.22)]
       hover:[box-shadow:0_0_20px_8px_rgba(0,0,0,.26)]
-      active:[box-shadow:0_0_16px_5px_rgba(0,0,0,.20)] transition-transform duration-300 ease-in-out
-      hover:scale-105 active:scale-95
-      focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-zinc-400
-      min-w-[16rem] lg:min-w-[22rem]
+      active:[box-shadow:0_0_16px_5px_rgba(0,0,0,.20)]
+      transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95
     "
   >
     <img
@@ -52,7 +51,7 @@ function LoginPage() {
       aria-hidden="true"
       className="h-5 w-5 lg:h-6 lg:w-6 flex-shrink-0"
     />
-    <span className="text-base lg:text-2xl leading-none text-zinc-700 whitespace-nowrap font-medium">
+    <span className="text-base lg:text-2xl text-white text-zinc-300 leading-none whitespace-nowrap font-medium">
       Sign in with Google
     </span>
   </button>
