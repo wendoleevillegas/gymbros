@@ -1,8 +1,8 @@
-import dotenv from 'dotenv'
-import connectDB from './db/index.js';
-import { app } from './app.js';
+import dotenv from 'dotenv';
+import connectToDB from './config/db';
 import cors from 'cors';
 import passport from 'passport';
+import express from 'express';
 
 const app = express();
 
@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
     res.send("Running");
 })
 
-connectDB()
+connectToDB()
 .then(() => {
     app.listen(process.env.PORT || 5000, () => {
         console.log(`Server is listening at port ${process.env.PORT}`);
