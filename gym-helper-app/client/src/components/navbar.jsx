@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <nav className="bg-white border-t border-dark dark:border-white dark:bg-black text-black dark:text-white fixed bottom-0 left-0 w-full py-4 px-8 z-50">
+    <nav className="bg-gray-800 border-t border-dark dark:border-white dark:bg-gray-800 text-black dark:text-white fixed bottom-0 left-0 w-full py-4 px-8 z-50">
       <ul className="list-none flex justify-between items-center w-[95%] p-0 m-0">
         <li className="Workout">
           <NavLink
