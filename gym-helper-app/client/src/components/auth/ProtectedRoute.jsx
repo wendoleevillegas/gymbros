@@ -1,15 +1,22 @@
 import React from 'react';
 import { Navigate , useOutletContext} from 'react-router-dom';
+import { useAuth } from '../../contexts/theme/AuthContext.jsx';
 
 function ProtectedRoute({ children}) {
-    //isAuth is the state determing whether we are authenticated or not
-    const {isAuth} = useOutletContext();
-    
-    /*The ProtectedRoute component will use the useContext hook to get the user from your AuthContext
-    If user exists, render requested component (pass as children)
-    If user is null, use component from react-router-dom to redirect user to login*/
-    return isAuth ? children : <Navigate to='/' replace/>
+    // //isAuth is the state determing whether we are authenticated or not
+    // const {isAuth} = useOutletContext();
+    // console.log("ProtectedRoute: isAuth =", isAuth);
+    // /*The ProtectedRoute component will use the useContext hook to get the user from your AuthContext
+    // If user exists, render requested component (pass as children)
+    // If user is null, use component from react-router-dom to redirect user to login*/
+    // return isAuth ? children : <Navigate to='/' replace/>
 
+    const { isAuth } = useAuth();
+
+    console.log("ProtectedRoute: isAuth =", isAuth);
+    
+    // redirect to login
+    return isAuth ? children : <Navigate to='/login' replace/>;
             
 }
 
