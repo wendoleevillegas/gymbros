@@ -3,6 +3,7 @@ import connectToDB from './config/db.js';
 import cors from 'cors';
 import passport from 'passport';
 import express from 'express';
+import authRoutes from './routes/auth.routes.js'; 
 
 const app = express();
 
@@ -23,7 +24,7 @@ dotenv.config({
 app.get("/", (req, res) => {
     res.send("Running");
 })
-
+app.use('/api/auth', authRoutes);
 connectToDB()
 .then(() => {
     app.listen(process.env.PORT || 5000, () => {
