@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { IoMdNutrition } from "react-icons/io";
 import { GrScorecard } from "react-icons/gr";
@@ -6,16 +6,15 @@ import { GrGallery } from "react-icons/gr";
 import { LuCalendarFold } from "react-icons/lu";
 
 function Profile() {
- 
   const user = {
-    name: 'name',
-    username: '@user',
-    email: 'user@gmail.com',
-    profilePicture: 'n/a'
+    name: "name",
+    username: "@user",
+    email: "user@gmail.com",
+    profilePicture: "n/a",
   };
 
   const logout = () => {
-    console.log('Logout clicked');
+    console.log("Logout clicked");
   };
 
   const navigate = (path) => {
@@ -24,12 +23,10 @@ function Profile() {
 
   return (
     <div className="flex flex-col gap-6 p-6 text-black dark:text-white bg-gray-50 dark:bg-black min-h-screen w-full">
-      
       <div className="flex items-start gap-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md relative">
-        
-        <button 
+        <button
           className="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
-          onClick={() => (console.log('editing'))}
+          onClick={() => console.log("editing")}
         >
           <HiOutlinePencilAlt className="w-5 h-5" />
         </button>
@@ -49,11 +46,10 @@ function Profile() {
 
       <div>
         <h2 className="text-xl font-semibold mb-4">Quick Stats</h2>
-        
+
         <div className="grid grid-cols-2 gap-4">
-          
           <button
-            onClick={() => navigate('/nutrition')}
+            onClick={() => navigate("/nutrition")}
             className="flex flex-col items-center justify-center p-6 bg-blue-50 dark:bg-blue-900 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-lg shadow-md transition-colors cursor-pointer"
           >
             <IoMdNutrition className="w-12 h-12 text-blue-600 dark:text-blue-400 mb-2" />
@@ -61,7 +57,7 @@ function Profile() {
           </button>
 
           <button
-            onClick={() => navigate('/goals')}
+            onClick={() => navigate("/goals")}
             className="flex flex-col items-center justify-center p-6 bg-green-50 dark:bg-green-900 hover:bg-green-100 dark:hover:bg-green-800 rounded-lg shadow-md transition-colors cursor-pointer"
           >
             <GrScorecard className="w-12 h-12 text-green-600 dark:text-green-400 mb-2" />
@@ -69,7 +65,7 @@ function Profile() {
           </button>
 
           <button
-            onClick={() => navigate('/gallery')}
+            onClick={() => navigate("/gallery")}
             className="flex flex-col items-center justify-center p-6 bg-purple-50 dark:bg-purple-900 hover:bg-purple-100 dark:hover:bg-purple-800 rounded-lg shadow-md transition-colors cursor-pointer"
           >
             <GrGallery className="w-12 h-12 text-purple-600 dark:text-purple-400 mb-2" />
@@ -77,7 +73,7 @@ function Profile() {
           </button>
 
           <button
-            onClick={() => navigate('/calendar')}
+            onClick={() => navigate("/calendar")}
             className="flex flex-col items-center justify-center p-6 bg-yellow-50 dark:bg-yellow-900 hover:bg-yellow-100 dark:hover:bg-yellow-800 rounded-lg shadow-md transition-colors cursor-pointer"
           >
             <LuCalendarFold className="w-12 h-12 text-yellow-600 dark:text-yellow-400 mb-2" />
@@ -94,6 +90,6 @@ function Profile() {
       </button>
     </div>
   );
-};
+}
 
 export default Profile;
