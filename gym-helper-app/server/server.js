@@ -3,6 +3,7 @@ import connectToDB from './config/db.js';
 import cors from 'cors';
 import passport from 'passport';
 import express from 'express';
+import authRoutes from './routes/auth.routes.js'
 
 const app = express();
 
@@ -15,6 +16,9 @@ app.use(express.json());
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+app.use('/api/auth', authRoutes);
 
 dotenv.config({
     path: './env'
