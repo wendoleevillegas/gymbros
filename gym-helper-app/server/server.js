@@ -3,10 +3,9 @@ import connectToDB from './config/db.js';
 import cors from 'cors';
 import passport from 'passport';
 import express from 'express';
-import authRoutes from './routes/auth.routes.js'
+import authRoutes from './routes/auth.routes.js';
 
 const app = express();
-
 app.use(cors({
     origin: process.env.CORS_ORIGIN,
     credentials: true
