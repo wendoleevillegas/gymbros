@@ -6,7 +6,7 @@ const ModeToggle = () => {
   const { theme, toggleTheme } = useTheme();
   return (
     <button
-      className="fixed top-4 left-4 z-50 p-2 text-gray-600 border border-gray-300 rounded-md bg-slate-100 cursor-pointer"
+      className="fixed top-4 left-4 z-50 p-2 text-gray-600 border border-gray-300 rounded-md bg-slate-100 cursor-pointer bg-white dark:bg-#1a1a1a"
       onClick={() => toggleTheme()}
     >
       {theme === "light" ? (

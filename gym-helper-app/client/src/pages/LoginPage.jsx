@@ -15,7 +15,7 @@ function LoginPage() {
   };
 
 return (
-    <main className="h-screen bg-white landscape:bg-black flex items-center justify-center p-4">
+    <main className="h-screen bg-white landscape:bg-black flex items-center justify-center p-4 w-full">
       <div
         className="
           w-full min-h-dvh rounded-none p-6 bg-white text-black flex flex-col items-center
