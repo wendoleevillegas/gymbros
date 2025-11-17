@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const setSchema = new mongoose.Schema({
     reps: Number,
@@ -26,7 +26,12 @@ const exerciseSchema = new mongoose.Schema({
 })
 
 const userSchema = new mongoose.Schema({
-    username: String,
+    email: { type: String, index: true, unique: false, sparse: true },
+    password: String,
+    googleId: { type: String, index: true, unique: false, sparse: true },
+    provider: String,
+    name: String,
+    avatar: String,
     workoutHistory: [workoutSchema], //! Consider moving this to its own model; Users could log a lot of workouts
     workoutTemplates: [workoutTemplateSchema],
     customExercises: [exerciseSchema],

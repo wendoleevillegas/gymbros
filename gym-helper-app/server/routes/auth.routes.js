@@ -1,6 +1,8 @@
 import express from 'express';
-import { authenticate } from '../middleware/auth.middleware';
-import { User } from '../models/User';
+import passport from 'passport';
+import { authenticate } from '../middleware/auth.middleware.js';
+import { User } from '../models/User.js';
+import { googleCallback } from '../controllers/auth.controller.js';
 
 const router = express.Router();
 
@@ -36,7 +38,7 @@ router.post('/logout', (req, res, next) => {
         res.clearCookie("token", {
             httpOnly: true,
             secure: true,
-            sameSite: strict
+            sameSite: 'Strict'
         });
 
         res.status(200).json({
@@ -54,5 +56,8 @@ router.post('/logout', (req, res, next) => {
         })  
     }
 })
+
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'], session: false }));
+router.get('/google/callback', passport.authenticate('google', { session: false, failureRedirect: `${process.env.CLIENT_URL || 'http://localhost:3000'}/login` }), googleCallback);
 
 export default router;

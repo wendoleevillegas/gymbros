@@ -7,11 +7,7 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    localStorage.setItem("isAuth", "true");
-    // where we will call Google API in the future
-    setIsAuth(true);
-    // redirecting to homepage after login
-    navigate('/');
+    window.location.href = `http://localhost:5000/api/auth/google`;
   };
 
 return (
