@@ -57,11 +57,7 @@ router.post('/logout', (req, res, next) => {
     }
 })
 
-<<<<<<< HEAD
-export default router;
-=======
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'], session: false }));
 router.get('/google/callback', passport.authenticate('google', { session: false, failureRedirect: `${process.env.CLIENT_URL || 'http://localhost:3000'}/login` }), googleCallback);
 
 export default router;
->>>>>>> upstream/main
