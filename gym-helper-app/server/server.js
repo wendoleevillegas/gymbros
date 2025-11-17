@@ -19,12 +19,9 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-<<<<<<< HEAD
-=======
 configurePassport(passport);
 app.use(passport.initialize());
 
->>>>>>> upstream/main
 app.use('/api/auth', authRoutes);
 
 app.get("/", (req, res) => {
