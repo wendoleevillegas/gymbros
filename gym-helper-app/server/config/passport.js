@@ -1,5 +1,5 @@
 import { Strategy } from "passport-google-oauth20";
-import { User } from "../models/User";
+import { User } from "../models/User.js";
 
 export default function configurePassport(passport) {
     passport.use(
