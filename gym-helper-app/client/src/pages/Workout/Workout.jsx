@@ -1,3 +1,3 @@
 export default function Workout() {
-  return <div>Workout</div>;
+  return <div className="text-gray-800 dark:text-white">Workout</div>;
 }
