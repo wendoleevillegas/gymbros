@@ -1,7 +1,12 @@
+import { useAuth, unknownUser } from "../../contexts/theme/AuthContext";
+
 export default function Home() {
+
+  const { user } = useAuth();
+
   return (
     <div className="flex flex-col bg-white text-black dark:bg-black dark:text-white p-6 space-y-8">
-      <h1 className="text-3xl font-bold mb-4">Welcome back, [Username]!</h1>
+      <h1 className="text-3xl font-bold mb-4">Welcome back, {user?.name ?? unknownUser.name}!</h1>
 
       {/* workout card */}
       <div className="bg-gray-100 dark:bg-gray-800 rounded shadow-md p-6 flex flex-col items-center space-y-4 w-full">
@@ -25,7 +30,7 @@ export default function Home() {
               <h6 className="mt-2 text-sm">{d}</h6>
               <div
                 className="w-6 bg-blue-400 rounded"
-                style={{ height: `${Math.min((100*Math.random() + 10), 100)}px` }}
+                style={{ height: `${Math.min((100 * Math.random() + 10), 100)}px` }}
               />
             </div>
           ))}
@@ -39,7 +44,7 @@ export default function Home() {
         <div className="bg-gray-100 dark:bg-gray-800 rounded shadow p-6 space-y-2 flex-1 flex flex-col items-center">
           <h3 className="text-lg font-semibold mb-2">Daily Calories</h3>
           <div className="text-4xl font-bold mb-2">50%</div>
-          
+
           <div className="relative flex items-center justify-center h-28 w-28 mb-2">
             {/* circle (will change later, just aesthetics for now) */}
             <div className="absolute inset-0 rounded-full border-8 border-blue-400" />
