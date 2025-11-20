@@ -1,6 +1,7 @@
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import { useAuth } from '../contexts/theme/AuthContext.jsx';
 
+// TODO: Revisit as per changes to AuthContext
 function AuthGate(){
     const navigate = useNavigate();
     // const { setIsAuth } = useOutletContext();

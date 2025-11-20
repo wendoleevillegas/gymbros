@@ -31,6 +31,7 @@ const userSchema = new mongoose.Schema({
     googleId: { type: String, index: true, unique: false, sparse: true },
     provider: String,
     name: String,
+    username: String,
     avatar: String,
     workoutHistory: [workoutSchema], //! Consider moving this to its own model; Users could log a lot of workouts
     workoutTemplates: [workoutTemplateSchema],

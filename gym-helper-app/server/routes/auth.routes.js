@@ -8,7 +8,8 @@ const router = express.Router();
 
 router.get('/me', authenticate, async (req, res, next) => {
     try {
-        const user = await User.findById(req.user.id).select("-password");
+        const userId = req.user.id || req.user.sub;
+        const user = await User.findById(userId).select("-password");
         if(!user){
             return res.status(404).json({
                 status : 404,

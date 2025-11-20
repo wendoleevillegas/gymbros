@@ -1,21 +1,13 @@
-import React from "react";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { IoMdNutrition } from "react-icons/io";
 import { GrScorecard } from "react-icons/gr";
 import { GrGallery } from "react-icons/gr";
 import { LuCalendarFold } from "react-icons/lu";
+import { useAuth, unknownUser } from "../../contexts/theme/AuthContext";
 
 function Profile() {
-  const user = {
-    name: "name",
-    username: "@user",
-    email: "user@gmail.com",
-    profilePicture: "/assets/croc-dark.png",
-  };
 
-  const logout = () => {
-    console.log("Logout clicked");
-  };
+  const { user, logout } = useAuth();
 
   const navigate = (path) => {
     console.log(`Navigation: ${path}`);
@@ -32,15 +24,15 @@ function Profile() {
         </button>
 
         <img
-          src={user.profilePicture}
+          src={user?.avatar.replace('=s96-c', '') ?? unknownUser.profilePicture}
           alt=""
           className="w-24 h-24 rounded-full object-cover border-4 border-gray-200 dark:border-gray-700"
         />
 
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-bold">{user.name}</h1>
-          <p className="text-gray-600 dark:text-gray-400">{user.username}</p>
-          <p className="text-gray-500 dark:text-gray-500">{user.email}</p>
+          <h1 className="text-2xl font-bold">{user?.name ?? unknownUser.name}</h1>
+          <p className="text-gray-600 dark:text-gray-400">{user?.username ?? unknownUser.username}</p>
+          <p className="text-gray-500 dark:text-gray-500">{user?.email ?? unknownUser.username}</p>
         </div>
       </div>
 

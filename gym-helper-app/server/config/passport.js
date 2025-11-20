@@ -28,6 +28,7 @@ export default function configurePassport(passport) {
                         user = await User.create({
                             googleId,
                             provider: 'google',
+                            username: name.toLowerCase().replace(/\s+/g, ''),
                             email,
                             name,
                             avatar

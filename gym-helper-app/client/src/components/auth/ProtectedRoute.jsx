@@ -11,12 +11,11 @@ function ProtectedRoute({ children}) {
     // If user is null, use component from react-router-dom to redirect user to login*/
     // return isAuth ? children : <Navigate to='/' replace/>
 
-    const { isAuth } = useAuth();
+    const { user, loading } = useAuth();
 
-    console.log("ProtectedRoute: isAuth =", isAuth);
-    
-    // redirect to login
-    return isAuth ? children : <Navigate to='/login' replace/>;
+    if (loading) return null;
+
+    return user ? children : <Navigate to='/login' replace/>;
             
 }
 
