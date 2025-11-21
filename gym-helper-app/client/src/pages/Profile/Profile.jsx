@@ -4,10 +4,13 @@ import { GrScorecard } from "react-icons/gr";
 import { GrGallery } from "react-icons/gr";
 import { LuCalendarFold } from "react-icons/lu";
 import { useAuth, unknownUser } from "../../contexts/theme/AuthContext";
+import { useState } from "react";
 
 function Profile() {
 
   const { user, logout } = useAuth();
+  const [isEditing, setIsEditing] = useState(false);
+  const { setUser } = useAuth();
 
   const navigate = (path) => {
     console.log(`Navigation: ${path}`);
@@ -18,7 +21,8 @@ function Profile() {
       <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-15 p-6 bg-blue-300 dark:bg-gray-800 rounded-lg shadow-lg relative">
         <button
           className="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
-          onClick={() => console.log("editing")}
+          onClick={() => setIsEditing(true)}
+
         >
           <HiOutlinePencilAlt className="w-10 h-10" />
         </button>
@@ -80,6 +84,80 @@ function Profile() {
       >
         Logout
       </button>
+      {isEditing && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg w-[90%] max-w-md">
+            <h2 className="text-xl font-bold mb-4">Edit Profile</h2>
+            <form
+              onSubmit={ async (e) => {
+                e.preventDefault();
+                // TODO: handle update logic
+                setIsEditing(false);
+                const form = e.target;
+                const updatedUser = {
+                  name: form[0].value,
+                  username: form[1].value, 
+                  avatar: form[2].value, 
+                };
+                try {
+                  const res = await fetch("http://localhost:5000/api/auth/me", {
+                    method: "PATCH", 
+                    headers: {
+                      "Content-Type": "application/json", 
+                    },
+                    credentials: "include", 
+                    body: JSON.stringify(updatedUser), 
+                  });
+                  if(res.ok){
+                    const json = await res.json();
+                    setUser(json.data);
+                    setIsEditing(false);
+                  } else{
+                    console.error("Failed to update profile");
+                  }
+                } catch (err) {
+                  console.error("Error updating profile:", err);
+                }
+              }}
+              className="flex flex-col gap-4"
+            >
+              <input
+                type="text"
+                defaultValue={user?.name}
+                placeholder="Name"
+                className="p-2 border rounded"
+              />
+              <input
+                type="text"
+                defaultValue={user?.username}
+                placeholder="Username"
+                className="p-2 border rounded"
+              />
+              <input
+                type="text"
+                defaultValue={user?.avatar}
+                placeholder="Avatar URL"
+                className="p-2 border rounded"
+              />
+              <div className="flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setIsEditing(false)}
+                  className="px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-600 text-white rounded"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
