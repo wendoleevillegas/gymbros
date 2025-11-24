@@ -8,8 +8,11 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import configurePassport from './config/passport.js';
 import authRoutes from './routes/auth.routes.js'
+import profileRoutes from "./routes/profile.js";
 
 const app = express();
+app.use("/api/profile", profileRoutes);
+app.use("/uploads", express.static("uploads"));
 app.use(cors({
     origin: process.env.CORS_ORIGIN,
     credentials: true

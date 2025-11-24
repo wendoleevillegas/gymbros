@@ -27,7 +27,7 @@ function LoginPage() {
             Track your workouts. Stay Consistent
           </p>
         </div>
-        <div className="grid place-items-center w-full top-[30%] absolute h-4/9">
+        <div className="grid place-items-center w-full top-[30%] absolute h-4/9 pb-36">
           <img
             src="/assets/croc-dark.png"
             alt="croc logo"

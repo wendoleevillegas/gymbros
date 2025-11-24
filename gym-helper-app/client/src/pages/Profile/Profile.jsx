@@ -5,6 +5,7 @@ import { GrGallery } from "react-icons/gr";
 import { LuCalendarFold } from "react-icons/lu";
 import { useAuth, unknownUser } from "../../contexts/theme/AuthContext";
 import { useState } from "react";
+import ImageUploader from "../../components/imageUploader";
 
 function Profile() {
 
@@ -28,15 +29,14 @@ function Profile() {
         </button>
 
         <img
-          src={user?.avatar.replace('=s96-c', '') ?? unknownUser.profilePicture}
-          alt=""
+          src={user?.avatar ?? unknownUser.profilePicture}
+          alt="Profile"
           className="w-24 h-24 rounded-full object-cover border-4 border-gray-200 dark:border-gray-700"
         />
 
         <div className="flex flex-col gap-2">
           <h1 className="text-2xl font-bold">{user?.name ?? unknownUser.name}</h1>
           <p className="text-gray-600 dark:text-gray-400">{user?.username ?? unknownUser.username}</p>
-          <p className="text-gray-500 dark:text-gray-500">{user?.email ?? unknownUser.username}</p>
         </div>
       </div>
 
@@ -92,13 +92,13 @@ function Profile() {
               onSubmit={ async (e) => {
                 e.preventDefault();
                 // TODO: handle update logic
-                setIsEditing(false);
                 const form = e.target;
                 const updatedUser = {
                   name: form[0].value,
                   username: form[1].value, 
-                  avatar: form[2].value, 
+                  // avatar will be updated via ImageUploader callback
                 };
+                //TODO: send updatedUser (name + username) to backend
                 try {
                   const res = await fetch("http://localhost:5000/api/auth/me", {
                     method: "PATCH", 
@@ -133,12 +133,30 @@ function Profile() {
                 placeholder="Username"
                 className="p-2 border rounded"
               />
-              <input
-                type="text"
-                defaultValue={user?.avatar}
-                placeholder="Avatar URL"
-                className="p-2 border rounded"
-              />
+              <label className = "block mb-2">
+                Profile Picture
+                <ImageUploader
+                  multiple={false}
+                  onUpload={(files) => {
+                    const file = files[0];
+                    if(file) {
+                      const formData = new FormData();
+                      formData.append("avatar", file);
+
+                      fetch("http://localhost:5000/api/profile/avatar", {
+                        method: "POST",
+                        body: formData,
+                        credentials: "include", 
+                    })
+                        .then((res) => res.json())
+                        .then((json) => {
+                          setUser(json.data);
+                      })
+                       .catch((err) => console.error("Upload failed:", err));
+                  }
+                }}
+                />
+              </label>
               <div className="flex justify-end gap-2">
                 <button
                   type="button"
