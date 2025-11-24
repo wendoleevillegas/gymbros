@@ -7,31 +7,30 @@ function LoginPage() {
   const navigate = useNavigate();
 
   return (
-    <main className="h-screen bg-white landscape:bg-black flex items-center justify-center p-4 w-full">
+    <main className="h-screen bg-white landscape:bg-black flex items-center justify-center w-full">
       <div
         className="
-          w-full min-h-dvh rounded-none p-6 bg-white text-black flex flex-col items-center
+          w-[100vw] min-h-dvh rounded-none bg-white text-black flex flex-col items-center
 
-     
-          landscape:w-[95vw] landscape:max-w-[680px] landscape:min-w-[380px] landscape:min-h-[80vh]
+          landscape:w-[90vw] landscape:max-w-[540px] landscape:min-w-[340px] landscape:min-h-[90vh]
           landscape:rounded-[18px] landscape:p-10
           landscape:shadow-[0_0_35px] landscape:shadow-white/20
           landscape:border landscape:border-white/10 relative
         "
       >
         <div className="flex items-end justify-center w-full absolute top-[0%] h-1/5">
-          <p className="font-bold text-[40px] lg:text-[64px] lg">Login</p>
+          <p className="font-bold text-[30px] lg:text-[64px] lg">Login</p>
         </div>
         <div className="grid place-items-center w-full absolute top-[20%] h-1/15">
-          <p className="text-[18px] lg:text-[30px] text-zinc-700 text-center">
+          <p className="text-[18px] lg:text-[20px] text-zinc-700 text-center">
             Track your workouts. Stay Consistent
           </p>
         </div>
-        <div className="grid place-items-center w-full top-[30%] absolute h-4/9 pb-36">
+        <div className="grid place-items-center w-full top-[25%] absolute h-4/9 pb-24">
           <img
             src="/assets/croc-dark.png"
             alt="croc logo"
-            className="h-70 w-70 lg:h-100 lg:w-100"
+            className="h-70 w-70 lg:h-90 lg:w-90"
           />
         </div>
         <div className="absolute inset-x-0 top-[75%] grid place-items-center w-full">
@@ -41,7 +40,7 @@ function LoginPage() {
             onClick={login}
             className="
       inline-flex items-center justify-center gap-4 rounded-3xl
-      px-5 lg:px-7 h-16 lg:h-20
+      px-5 lg:px-7 h-16 lg:h-16
       bg-white text-zinc-700
       border-[5px] border-transparent
       [box-shadow:0_0_12px_6px_rgba(0,0,0,.22)]
