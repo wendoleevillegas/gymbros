@@ -12,11 +12,11 @@ function ProtectedRoute({ children}) {
     // return isAuth ? children : <Navigate to='/' replace/>
 
     const { user, loading } = useAuth();
-
+    return children;
     if (loading) return null;
 
-    return user ? children : <Navigate to='/login' replace/>;
-            
+    // return user ? children : <Navigate to='/login' replace/>;
+    
 }
 
 export default ProtectedRoute;

@@ -7,30 +7,30 @@ function LoginPage() {
   const navigate = useNavigate();
 
   return (
-    <main className="h-screen bg-white landscape:bg-black flex items-center justify-center w-full">
+    <main className="min-h-screen bg-white landscape:bg-black flex items-center justify-center w-full min-h-[85vh]">
       <div
         className="
-          w-[100vw] min-h-dvh rounded-none bg-white text-black flex flex-col items-center
+          w-[100vw] min-h-dvh rounded-none bg-white text-black flex flex-col items-center shrink-0
 
-          landscape:w-[90vw] landscape:max-w-[540px] landscape:min-w-[340px] landscape:min-h-[90vh]
+          landscape:w-[90vw] landscape:max-w-[500px] landscape:min-w-[320px] landscape:min-h-[85vh]
           landscape:rounded-[18px] landscape:p-10
           landscape:shadow-[0_0_35px] landscape:shadow-white/20
           landscape:border landscape:border-white/10 relative
         "
       >
         <div className="flex items-end justify-center w-full absolute top-[0%] h-1/5">
-          <p className="font-bold text-[30px] lg:text-[64px] lg">Login</p>
+          <p className="font-bold text-[30px] lg:text-[64px] lg">Gym-Rat</p>
         </div>
         <div className="grid place-items-center w-full absolute top-[20%] h-1/15">
           <p className="text-[18px] lg:text-[20px] text-zinc-700 text-center">
             Track your workouts. Stay Consistent
           </p>
         </div>
-        <div className="grid place-items-center w-full top-[25%] absolute h-4/9 pb-24">
+        <div className="grid place-items-center w-full top-[25%] absolute h-4.5/9 p-10">
           <img
-            src="/assets/croc-dark.png"
+            src="/assets/gymrat.png"
             alt="croc logo"
-            className="h-70 w-70 lg:h-90 lg:w-90"
+            className="h-70 w-70 lg:h-60 lg:w-60"
           />
         </div>
         <div className="absolute inset-x-0 top-[75%] grid place-items-center w-full">
@@ -61,7 +61,7 @@ function LoginPage() {
           </button>
         </div>
         <div className="grid place-items-center w-full top-[85%] absolute h-1/9">
-          <p className="mt-[4rem] text-center text-xs text-zinc-500 px-4">
+          <p className="mt-[3rem] text-center text-xs text-zinc-500 px-4">
             By continuing, you agree to our{" "}
             <a className="underline decoration-dotted" href="#">Terms</a> and{" "}
             <a className="underline decoration-dotted" href="#">Privacy Policy</a>. We never post to your account.
