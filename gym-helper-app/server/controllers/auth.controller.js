@@ -12,8 +12,10 @@ export const googleCallback = (req, res) => {
         const cookieOptions = {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'Strict',
-            maxAge: +(process.env.COOKIE_MAX_AGE_MS || 1000 * 60 * 60) // 1 hour
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+            //sameSite: 'Strict',
+            maxAge: +(process.env.COOKIE_MAX_AGE_MS || 1000 * 60 * 60), // 1 hour
+            domain: "localhost"
         };
 
         res.cookie('token', token, cookieOptions);

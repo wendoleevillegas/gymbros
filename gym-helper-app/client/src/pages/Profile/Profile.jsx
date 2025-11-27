@@ -9,10 +9,9 @@ import ImageUploader from "../../components/imageUploader";
 
 function Profile() {
 
-  const { user, logout } = useAuth();
+  const { user, logout, setUser } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
-  const { setUser } = useAuth();
-
+ 
   const navigate = (path) => {
     console.log(`Navigation: ${path}`);
   };
@@ -27,9 +26,9 @@ function Profile() {
         >
           <HiOutlinePencilAlt className="w-10 h-10" />
         </button>
-
+       
         <img
-          src={user?.avatar ?? unknownUser.profilePicture}
+          src={user?.profilePicture ?? unknownUser.profilePicture}
           alt="Profile"
           className="w-24 h-24 rounded-full object-cover border-4 border-gray-200 dark:border-gray-700"
         />
@@ -137,24 +136,6 @@ function Profile() {
                 Profile Picture
                 <ImageUploader
                   multiple={false}
-                  onUpload={(files) => {
-                    const file = files[0];
-                    if(file) {
-                      const formData = new FormData();
-                      formData.append("avatar", file);
-
-                      fetch("http://localhost:5000/api/profile/avatar", {
-                        method: "POST",
-                        body: formData,
-                        credentials: "include", 
-                    })
-                        .then((res) => res.json())
-                        .then((json) => {
-                          setUser(json.data);
-                      })
-                       .catch((err) => console.error("Upload failed:", err));
-                  }
-                }}
                 />
               </label>
               <div className="flex justify-end gap-2">

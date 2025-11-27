@@ -9,10 +9,9 @@ import cookieParser from 'cookie-parser';
 import configurePassport from './config/passport.js';
 import authRoutes from './routes/auth.routes.js'
 import profileRoutes from "./routes/profile.js";
+import path from "path";
 
 const app = express();
-app.use("/api/profile", profileRoutes);
-app.use("/uploads", express.static("uploads"));
 app.use(cors({
     origin: process.env.CORS_ORIGIN,
     credentials: true
@@ -30,7 +29,9 @@ app.use('/api/auth', authRoutes);
 app.get("/", (req, res) => {
     res.send("Running");
 })
-
+app.use("/api/auth/me", profileRoutes);
+// app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 connectToDB()
     .then(() => {
         const PORT = process.env.PORT || 5000;

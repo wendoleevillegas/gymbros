@@ -4,6 +4,8 @@ import path from "path";
 import fs from "fs";
 import passport from "passport";
 import { User } from "../models/User.js"; // adjust path to your User model
+import { authenticate } from "../middleware/auth.middleware.js"; 
+
 
 const router = express.Router();
 
@@ -19,7 +21,6 @@ const storage = multer.diskStorage({
     cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
-    // unique filename: userId + timestamp + original extension
     const ext = path.extname(file.originalname);
     cb(null, `${Date.now()}${ext}`);
   },
@@ -27,8 +28,27 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post("/avatar", 
-    passport.authenticate("session"),
+router.patch("/", authenticate, async (req, res) => {
+  try {
+    const { name, username } = req.body;
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.sub, 
+      { name, username }, 
+      { new: true }
+    );
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found"});
+    }
+    
+    res.json({ data: updatedUser });
+  } catch (err) {
+    console.error("Profile update failed:", err);
+    res.status(500).json({ error: "Update failed" });
+  }
+});
+
+router.patch("/avatar", 
+    authenticate,
     upload.single("avatar"), 
     async (req, res) => {
   try {
@@ -37,14 +57,18 @@ router.post("/avatar",
     }
 
     // Build a URL to serve the file
-    const uploadedUrl = `/uploads/${req.file.filename}`;
+    const uploadedUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
 
     // Update user in DB
     const updatedUser = await User.findByIdAndUpdate(
-      req.user.id,
-      { avatar: uploadedUrl },
+      req.user.sub,
+      { profilePicture: uploadedUrl },
       { new: true }
     );
+    
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found"});
+    }
 
     res.json({ data: updatedUser });
   } catch (err) {

@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useAuth } from "../contexts/theme/AuthContext";
 
 function ImageUploader({ multiple = false, onUpload }) {
   const [files, setFiles] = useState([]);
   const [error, setError] = useState("");
+  const { setUser } = useAuth();
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const selectedFiles = Array.from(e.target.files);
     const validFiles = [];
     let errorMsg = "";
@@ -22,13 +24,30 @@ function ImageUploader({ multiple = false, onUpload }) {
     if (errorMsg) {
       setError(errorMsg);
       setFiles([]);
-    } else {
-      setError("");
-      setFiles(validFiles);
-      onUpload && onUpload(validFiles);
+      return;
+    } 
+    setError("");
+    setFiles(validFiles);
+
+    const formData = new FormData();
+    formData.append("avatar", validFiles[0]);
+    
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/me/avatar", {
+        method: "PATCH", 
+        body: formData, 
+        credentials: "include", 
+      });
+      const json = await res.json();
+      
+      if (res.ok && json.data) {
+        
+        setUser(json.data);
+      } 
+    } catch (err) {
+      setError("Upload failed.");
     }
   };
-
   return (
     <div className="flex flex-col gap-2">
       <input
@@ -48,10 +67,6 @@ function ImageUploader({ multiple = false, onUpload }) {
             src={URL.createObjectURL(file)}
             alt={`preview-${idx}`}
             className="w-24 h-24 object-cover rounded border"
-            onError={(e) => {
-              e.target.style.display = "none";
-              setError("One of the images could not be loaded.");
-            }}
           />
         ))}
       </div>
