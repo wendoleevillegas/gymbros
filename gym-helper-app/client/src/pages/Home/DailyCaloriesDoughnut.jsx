@@ -9,16 +9,6 @@ export default function DailyCaloriesDoughnut({ calories, goal }) {
   return (
     <div className="relative flex items-center justify-center h-28 w-28 mb-2">
       <svg width={100} height={100}>
-        {/* background circle /}
-        <circle
-          cx={50}
-          cy={50}
-          r={radius}
-          fill="none"
-          stroke="#ddd"
-          strokeWidth={8}
-        />
-        {/ animated foreground/percent circle */}
         <circle
           cx={50}
           cy={50}
