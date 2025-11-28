@@ -15,7 +15,7 @@ function Profile() {
 
   return (
     <div className="flex flex-col gap-20 p-6 text-black dark:text-white bg-white dark:bg-black min-h-screen w-full">
-      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-15 p-6 bg-blue-300 dark:bg-gray-800 rounded-lg shadow-lg relative">
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-15 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 relative">
         <button
           className="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
           onClick={() => console.log("editing")}
@@ -42,7 +42,7 @@ function Profile() {
         <div className="grid lg:grid-cols-2 gap-20">
           <button
             onClick={() => navigate("/nutrition")}
-            className="flex flex-col border-2 border-black dark:border-white items-center justify-center p-20 pl-10 pr-10 bg-white dark:bg-black hover:bg-blue-100 dark:hover:bg-gray-900 rounded-3xl shadow-md transition-colors cursor-pointer"
+                className="flex flex-col border border-gray-200 dark:border-gray-700 items-center justify-center p-20 pl-10 pr-10 bg-white dark:bg-gray-900 hover:bg-purple-50 dark:hover:bg-gray-900 rounded-3xl shadow-md transition-colors cursor-pointer"
           >
             <IoMdNutrition className="w-12 h-12 text-blue-600 dark:text-blue-400 mb-2" />
             <span className="text-sm font-medium text-center">Nutrition</span>
@@ -50,7 +50,7 @@ function Profile() {
 
           <button
             onClick={() => navigate("/goals")}
-            className="flex flex-col border-2 border-black dark:border-white items-center justify-center p-20 pl-10 pr-10 bg-white dark:bg-black hover:bg-green-100 dark:hover:bg-gray-900 rounded-3xl shadow-md transition-colors cursor-pointer"
+            className="flex flex-col border border-gray-200 dark:border-gray-700 items-center justify-center p-20 pl-10 pr-10 bg-white dark:bg-gray-900 hover:bg-green-50 dark:hover:bg-gray-900 rounded-3xl shadow-md transition-colors cursor-pointer"
           >
             <GrScorecard className="w-12 h-12 text-green-600 dark:text-green-400 mb-2" />
             <span className="text-sm font-medium text-center">goals</span>
@@ -58,7 +58,7 @@ function Profile() {
 
           <button
             onClick={() => navigate("/gallery")}
-            className="flex flex-col border-2 border-black dark:border-white items-center justify-center p-20 pl-10 pr-10 bg-white dark:bg-black hover:bg-purple-100 dark:hover:bg-gray-900 rounded-3xl shadow-md transition-colors cursor-pointer"
+            className="flex flex-col border border-gray-200 dark:border-gray-700 items-center justify-center p-20 pl-10 pr-10 bg-white dark:bg-gray-900 hover:bg-purple-50 dark:hover:bg-gray-900 rounded-3xl shadow-md transition-colors cursor-pointer"
           >
             <GrGallery className="w-12 h-12 text-purple-600 dark:text-purple-400 mb-2" />
             <span className="text-sm font-medium text-center">gallery</span>
@@ -66,7 +66,7 @@ function Profile() {
 
           <button
             onClick={() => navigate("/calendar")}
-            className="flex flex-col border-2 border-black dark:border-white items-center justify-center p-20 pl-10 pr-10 bg-white dark:bg-black hover:bg-yellow-100 dark:hover:bg-gray-900 rounded-3xl shadow-md transition-colors cursor-pointer"
+            className="flex flex-col border border-gray-200 dark:border-gray-700 items-center justify-center p-20 pl-10 pr-10 bg-white dark:bg-gray-900 hover:bg-yellow-50 dark:hover:bg-gray-900 rounded-3xl shadow-md transition-colors cursor-pointer"
           >
             <LuCalendarFold className="w-12 h-12 text-yellow-600 dark:text-yellow-400 mb-2" />
             <span className="text-sm font-medium text-center">calendar</span>
@@ -76,7 +76,7 @@ function Profile() {
 
       <button
         onClick={logout}
-        className="w-full py-3 px-4 bg-blue-700 hover:bg-gray-900 border-2 border-black dark:border-white text-white font-medium rounded-lg shadow-md transition-colors"
+        className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md transition-colors"
       >
         Logout
       </button>
