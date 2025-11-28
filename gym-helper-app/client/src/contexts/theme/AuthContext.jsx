@@ -26,8 +26,7 @@ export const AuthProvider = ({ children }) => {
                     return;
                 }
                 const json = await res.json();
-
-                if (json.status != 200) { setUser(null); return };
+                console.log("AuthContext initial fetch:", json);
                 setUser(json.data);
             } catch (err) {
                 setUser(null);
@@ -54,7 +53,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, logout }}>
+        <AuthContext.Provider value={{ user, setUser, loading, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

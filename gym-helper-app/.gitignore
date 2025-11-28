@@ -19,3 +19,6 @@ node_modules/
 #Production build output
 dist/
 build/
+
+#uploads
+uploads/
