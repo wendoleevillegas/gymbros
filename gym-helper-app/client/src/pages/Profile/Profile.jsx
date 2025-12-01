@@ -626,7 +626,8 @@ function Profile() {
             </button>
 
             <button
-              onClick={() => navigate("/goals")}
+              // onClick={() => navigate("/goals")}
+              onClick={openGoalsModal}
               className="flex flex-col border border-gray-200 dark:border-gray-700 items-center justify-center p-6 bg-white dark:bg-gray-900 hover:bg-green-50 dark:hover:bg-gray-800 rounded-3xl shadow-md transition-colors cursor-pointer text-black"
             >
               <GrScorecard className="w-8 h-8 md:w-10 md:h-10 text-green-600 dark:text-green-400 mb-2" />
