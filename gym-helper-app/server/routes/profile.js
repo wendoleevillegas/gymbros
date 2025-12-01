@@ -132,4 +132,37 @@ router.patch("/goals", authenticate, async (req, res) => {
     }
 });
 
+router.post("/gallery", authenticate, upload.single("image"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const uploadedUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+    
+    // Push the new image object into the gallery array
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.sub,
+      { 
+        $push: { 
+          gallery: { 
+            url: uploadedUrl, 
+            date: new Date() 
+          } 
+        } 
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json({ data: updatedUser });
+  } catch (err) {
+    console.error("Gallery upload failed:", err);
+    res.status(500).json({ error: "Gallery upload failed" });
+  }
+});
+
 export default router;

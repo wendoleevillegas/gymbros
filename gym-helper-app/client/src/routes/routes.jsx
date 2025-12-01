@@ -7,6 +7,7 @@ import Workout from "../pages/Workout/Workout.jsx";
 import ProtectedRoute from "../components/auth/ProtectedRoute.jsx";
 import AuthGate from "../components/AuthGate.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
+import Gallery from "../pages/Gallery/Gallery.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { path: "history", element: <History /> },
       { path: "profile", element: <Profile /> },
       { path: "workout", element: <Workout /> },
+      { path: "gallery", element: <Gallery /> },
       { path: "auth", element: <AuthGate /> },
     ],
     },

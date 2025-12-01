@@ -25,6 +25,11 @@ const exerciseSchema = new mongoose.Schema({
     bodyParts: [String]
 })
 
+const galleryItemSchema = new mongoose.Schema({
+    url: String,
+    date: { type: Date, default: Date.now }
+});
+
 const userSchema = new mongoose.Schema({
     email: { type: String, index: true, unique: false, sparse: true },
     password: String,
