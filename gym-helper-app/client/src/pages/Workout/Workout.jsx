@@ -102,7 +102,6 @@
 //         ];
 //   });
 
-//   // Save to LocalStorage whenever routines change
 //   useEffect(() => {
 //     localStorage.setItem("mySplits", JSON.stringify(routines));
 //   }, [routines]);
@@ -118,17 +117,34 @@
 //   const [exerciseInput, setExerciseInput] = useState("");
 //   const [formDays, setFormDays] = useState([]);
 
-//   const allDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-//   // --- Explore Data (Static) ---
+//   // --- Explore & Search State ---
+//   const [searchTerm, setSearchTerm] = useState(""); // 1. State for search input
+  
+//   // 2. Updated data to include keywords like "Quads" for better search results
 //   const [exercises] = useState([
-//     { id: 1, name: "Barbell Squat", muscleGroup: "Legs", duration: "3x8" },
-//     { id: 2, name: "Dumbbell Bench Press", muscleGroup: "Chest", duration: "3x10" },
-//     { id: 3, name: "Pull Up", muscleGroup: "Back", duration: "3xMax" },
+//     { id: 1, name: "Barbell Squat", muscleGroup: "Legs (Quads)" },
+//     { id: 2, name: "Dumbbell Bench Press", muscleGroup: "Chest" },
+//     { id: 3, name: "Pull Up", muscleGroup: "Back" },
+//     { id: 4, name: "Leg Extension", muscleGroup: "Legs (Quads)" },
+//     { id: 5, name: "Romanian Deadlift", muscleGroup: "Legs (Hamstrings)" },
+//     { id: 6, name: "Overhead Press", muscleGroup: "Shoulders" },
+//     { id: 7, name: "Bicep Curl", muscleGroup: "Arms (Biceps)" },
+//     { id: 8, name: "Tricep Extension", muscleGroup: "Arms (Triceps)" },
 //   ]);
 
-//   // --- Handlers ---
+//   const allDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
+//   // --- Filter Logic ---
+//   // Returns exercises where name OR muscleGroup matches the search term
+//   const filteredExercises = exercises.filter((ex) => {
+//     const term = searchTerm.toLowerCase();
+//     return (
+//       ex.name.toLowerCase().includes(term) ||
+//       ex.muscleGroup.toLowerCase().includes(term)
+//     );
+//   });
+
+//   // --- Handlers (Existing) ---
 //   const openCreateModal = () => {
 //     setEditingId(null);
 //     setFormName("");
@@ -147,7 +163,6 @@
 //     setIsModalOpen(true);
 //   };
 
-//   // --- NEW: Delete Handler ---
 //   const handleDelete = (id) => {
 //     if (window.confirm("Are you sure you want to delete this split?")) {
 //       const updatedRoutines = routines.filter((r) => r.id !== id);
@@ -179,7 +194,6 @@
 
 //   const handleSave = (e) => {
 //     e.preventDefault();
-
 //     const newRoutine = {
 //       id: editingId || Date.now(), 
 //       name: formName,
@@ -193,12 +207,7 @@
 //     } else {
 //       setRoutines([...routines, newRoutine]);
 //     }
-
 //     setIsModalOpen(false);
-//   };
-
-//   const onLearnMore = (exercise) => {
-//     alert(`${exercise.name} — Learn more`);
 //   };
 
 //   return (
@@ -222,7 +231,7 @@
 //                 key={r.id} 
 //                 routine={r} 
 //                 onEdit={openEditModal} 
-//                 onDelete={handleDelete} // Passed the delete handler here
+//                 onDelete={handleDelete} 
 //               />
 //             ))}
 //             {routines.length === 0 && (
@@ -236,21 +245,32 @@
 //           <div className="flex items-center justify-between">
 //             <h2 className="text-2xl font-bold">Explore</h2>
 //           </div>
+          
+//           {/* Search Input */}
 //           <div className="flex items-center space-x-2">
 //             <input
+//               type="text"
+//               value={searchTerm}
+//               onChange={(e) => setSearchTerm(e.target.value)}
 //               className="flex-1 p-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900"
-//               placeholder="Search exercises..."
+//               placeholder="Search exercises (e.g. Quads)..."
 //             />
 //           </div>
+
+//           {/* Filtered Exercise List */}
 //           <div className="overflow-y-auto space-y-4 h-[75vh] pr-2 pb-20">
-//             {exercises.map((ex) => (
-//               <ExerciseCard key={ex.id} exercise={ex} onLearnMore={onLearnMore} />
-//             ))}
+//             {filteredExercises.length > 0 ? (
+//               filteredExercises.map((ex) => (
+//                 <ExerciseCard key={ex.id} exercise={ex} />
+//               ))
+//             ) : (
+//               <p className="text-gray-500 text-center mt-10">No exercises found.</p>
+//             )}
 //           </div>
 //         </div>
 //       </div>
 
-//       {/* --- Create/Edit Modal --- */}
+//       {/* --- Create/Edit Modal (Existing) --- */}
 //       {isModalOpen && (
 //         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
 //           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
@@ -259,7 +279,6 @@
 //             </h2>
 
 //             <form onSubmit={handleSave} className="flex flex-col gap-4">
-//               {/* Name */}
 //               <div className="flex flex-col gap-1">
 //                 <label className="font-semibold text-sm">Workout Name:</label>
 //                 <input
@@ -272,7 +291,6 @@
 //                 />
 //               </div>
 
-//               {/* Description */}
 //               <div className="flex flex-col gap-1">
 //                 <label className="font-semibold text-sm">Workout Description:</label>
 //                 <input
@@ -284,7 +302,6 @@
 //                 />
 //               </div>
 
-//               {/* Exercises Tags */}
 //               <div className="flex flex-col gap-1">
 //                 <label className="font-semibold text-sm">Workout Exercises:</label>
 //                 <div className="flex flex-wrap gap-2 mb-2 p-2 border border-gray-300 dark:border-gray-700 rounded min-h-[50px] dark:bg-black">
@@ -315,7 +332,6 @@
 //                 <span className="text-xs text-gray-500">Press Enter to add a tag</span>
 //               </div>
 
-//               {/* Day Tags */}
 //               <div className="flex flex-col gap-1">
 //                 <label className="font-semibold text-sm">Workout Day(s):</label>
 //                 <div className="flex flex-wrap gap-2">
@@ -339,7 +355,6 @@
 //                 </div>
 //               </div>
 
-//               {/* Actions */}
 //               <div className="flex justify-end gap-3 mt-4">
 //                 <button
 //                   type="button"
@@ -401,29 +416,58 @@ export default function Workout() {
   const [formDays, setFormDays] = useState([]);
 
   // --- Explore & Search State ---
-  const [searchTerm, setSearchTerm] = useState(""); // 1. State for search input
-  
-  // 2. Updated data to include keywords like "Quads" for better search results
-  const [exercises] = useState([
-    { id: 1, name: "Barbell Squat", muscleGroup: "Legs (Quads)" },
-    { id: 2, name: "Dumbbell Bench Press", muscleGroup: "Chest" },
-    { id: 3, name: "Pull Up", muscleGroup: "Back" },
-    { id: 4, name: "Leg Extension", muscleGroup: "Legs (Quads)" },
-    { id: 5, name: "Romanian Deadlift", muscleGroup: "Legs (Hamstrings)" },
-    { id: 6, name: "Overhead Press", muscleGroup: "Shoulders" },
-    { id: 7, name: "Bicep Curl", muscleGroup: "Arms (Biceps)" },
-    { id: 8, name: "Tricep Extension", muscleGroup: "Arms (Triceps)" },
-  ]);
+  const [searchTerm, setSearchTerm] = useState(""); 
+  const [exercises, setExercises] = useState([]); // API Data
+  const [loading, setLoading] = useState(true);   // Loading State
 
   const allDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
+  // --- Fetch Exercises from ExerciseDB API ---
+  useEffect(() => {
+    const fetchExercisesData = async () => {
+      // Check if we already have data in session storage to save API calls
+      const cachedData = sessionStorage.getItem('exerciseData');
+      if (cachedData) {
+        setExercises(JSON.parse(cachedData));
+        setLoading(false);
+        return;
+      }
+
+      const url = 'https://exercisedb.p.rapidapi.com/exercises?limit=1300';
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': import.meta.env.VITE_RAPIDAPI_KEY,
+          'X-RapidAPI-Host': import.meta.env.VITE_RAPIDAPI_HOST
+        }
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setExercises(data);
+          // Cache the result for this session
+          sessionStorage.setItem('exerciseData', JSON.stringify(data));
+        }
+      } catch (error) {
+        console.error("Error fetching exercises:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchExercisesData();
+  }, []);
+
   // --- Filter Logic ---
-  // Returns exercises where name OR muscleGroup matches the search term
+  // API returns: { name, target, bodyPart, gifUrl, ... }
   const filteredExercises = exercises.filter((ex) => {
     const term = searchTerm.toLowerCase();
     return (
       ex.name.toLowerCase().includes(term) ||
-      ex.muscleGroup.toLowerCase().includes(term)
+      ex.target.toLowerCase().includes(term) ||    // e.g. "pectorals"
+      ex.bodyPart.toLowerCase().includes(term)     // e.g. "chest"
     );
   });
 
@@ -536,14 +580,16 @@ export default function Workout() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="flex-1 p-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900"
-              placeholder="Search exercises (e.g. Quads)..."
+              placeholder="Search exercises (e.g. Quads, Squat)..."
             />
           </div>
 
           {/* Filtered Exercise List */}
           <div className="overflow-y-auto space-y-4 h-[75vh] pr-2 pb-20">
-            {filteredExercises.length > 0 ? (
-              filteredExercises.map((ex) => (
+            {loading ? (
+                <p className="text-center text-gray-500 mt-10">Loading exercises...</p>
+            ) : filteredExercises.length > 0 ? (
+              filteredExercises.slice(0, 50).map((ex) => ( // Limiting render to 50 for performance
                 <ExerciseCard key={ex.id} exercise={ex} />
               ))
             ) : (
