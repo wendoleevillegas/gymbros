@@ -165,4 +165,27 @@ router.post("/gallery", authenticate, upload.single("image"), async (req, res) =
   }
 });
 
+router.delete("/gallery/:id", authenticate, async (req, res) => {
+    try {
+        const imageId = req.params.id;
+
+        const updatedUser = await User.findByIdAndUpdate(
+            req.user.sub,
+            { 
+                $pull: { gallery: { _id: imageId } } // Removes the item with this specific ID
+            },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        res.json({ data: updatedUser });
+    } catch (err) {
+        console.error("Gallery delete failed:", err);
+        res.status(500).json({ error: "Delete failed" });
+    }
+});
+
 export default router;

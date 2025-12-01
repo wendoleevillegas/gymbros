@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../contexts/theme/AuthContext";
 import { IoArrowBack } from "react-icons/io5";
-import { FiPlus } from "react-icons/fi"; // Icon for upload
+import { FiPlus, FiTrash2 } from "react-icons/fi"; // Icon for upload
 import { useNavigate } from "react-router-dom";
 
 export default function Gallery() {
@@ -36,6 +36,26 @@ export default function Gallery() {
       console.error("Error uploading image:", err);
     } finally {
       setIsUploading(false);
+    }
+  };
+
+  const handleDelete = async (imageId) => {
+    if (!confirm("Are you sure you want to delete this photo?")) return;
+
+    try {
+      const res = await fetch(`http://localhost:5000/api/auth/me/gallery/${imageId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      if (res.ok) {
+        const json = await res.json();
+        setUser(json.data); // Update UI immediately
+      } else {
+        console.error("Failed to delete image");
+      }
+    } catch (err) {
+      console.error("Error deleting image:", err);
     }
   };
 
