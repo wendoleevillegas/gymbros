@@ -55,32 +55,107 @@
 //   );
 // }
 
+// import React from 'react';
+
+// export default function ExerciseCard({ exercise }) {
+//   return (
+//     <div className="bg-white dark:bg-gray-900 rounded-lg p-4 shadow-md border border-gray-200 dark:border-gray-700 w-full flex gap-4 items-center">
+    
+//       {/* Left: GIF / Video */}
+//       <div className="flex-shrink-0 w-28 h-28 bg-white dark:bg-gray-800 rounded-md overflow-hidden flex items-center justify-center border border-gray-200 dark:border-gray-700">
+//         <img 
+//           src={exercise.gifUrl} 
+//           alt={exercise.name} 
+//           className="w-full h-full object-cover"
+//           loading="lazy"
+//           referrerPolicy="no-referrer" 
+//         />
+//       </div>
+
+//       {/* Middle: Title & Muscle Group */}
+//       <div className="flex-1 flex flex-col items-center justify-center">
+//         <h4 className="font-bold text-lg text-center leading-tight capitalize">
+//           {exercise.name}
+//         </h4>
+//         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 text-center capitalize">
+//           {exercise.target}
+//         </p>
+//       </div>
+
+//     </div>
+//   );
+// }
+
+// import React from 'react';
+
+// export default function ExerciseCard({ exercise }) {
+//   return (
+//     <div className="bg-white dark:bg-gray-900 rounded-lg p-4 shadow-md border border-gray-200 dark:border-gray-700 w-full flex gap-4 items-center">
+    
+//       {/* Left: GIF / Video */}
+//       <div className="flex-shrink-0 w-28 h-28 bg-white dark:bg-gray-800 rounded-md overflow-hidden flex items-center justify-center border border-gray-200 dark:border-gray-700">
+//         <img 
+//           src={exercise.gifUrl} 
+//           alt={exercise.name} 
+//           className="w-full h-full object-cover mix-blend-multiply dark:mix-blend-normal"
+//           loading="lazy" 
+//           referrerPolicy="no-referrer"
+//           onError={(e) => {
+//              // Fallback if GIF fails to load
+//              e.target.onerror = null; 
+//              e.target.style.display = 'none'; // Hide broken image
+//              e.target.parentNode.innerText = 'No GIF'; // Show text instead
+//              e.target.parentNode.className += ' text-xs text-gray-400 flex items-center justify-center';
+//           }}
+//         />
+//       </div>
+
+//       {/* Middle: Title & Muscle Group */}
+//       <div className="flex-1 flex flex-col items-center justify-center">
+//         <h4 className="font-bold text-lg text-center leading-tight capitalize">
+//           {exercise.name}
+//         </h4>
+//         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 text-center capitalize">
+//           {exercise.target}
+//         </p>
+//       </div>
+
+//     </div>
+//   );
+// }
+
 import React from 'react';
+import AuthenticatedImage from './AuthenticatedImage';
 
 export default function ExerciseCard({ exercise }) {
   return (
     <div className="bg-white dark:bg-gray-900 rounded-lg p-4 shadow-md border border-gray-200 dark:border-gray-700 w-full flex gap-4 items-center">
-    
-      {/* Left: GIF / Video */}
-      <div className="flex-shrink-0 w-28 h-28 bg-white dark:bg-gray-800 rounded-md overflow-hidden flex items-center justify-center border border-gray-200 dark:border-gray-700">
-        <img 
-          src={exercise.gifUrl} 
-          alt={exercise.name} 
-          className="w-full h-full object-cover"
-          loading="lazy" 
+      
+      {/* Left: Image Container */}
+      <div className="flex-shrink-0 w-24 h-24 bg-white dark:bg-gray-800 rounded-md overflow-hidden flex items-center justify-center border border-gray-200 dark:border-gray-700">
+        <AuthenticatedImage 
+            exerciseId={exercise.id} 
+            gifUrl={exercise.gifUrl} 
+            alt={exercise.name} 
         />
       </div>
 
       {/* Middle: Title & Muscle Group */}
-      <div className="flex-1 flex flex-col items-center justify-center">
-        <h4 className="font-bold text-lg text-center leading-tight capitalize">
+      <div className="flex-1 flex flex-col justify-center">
+        <h4 className="font-bold text-lg leading-tight capitalize mb-1">
           {exercise.name}
         </h4>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 text-center capitalize">
-          {exercise.target}
-        </p>
+        <div className="flex flex-wrap gap-2">
+          {/* Target Muscle */}
+          <span className="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full capitalize">
+            {exercise.target || "General"}
+          </span>
+          {/* Body Part */}
+          <span className="text-xs bg-gray-100 text-gray-800 px-2 py-0.5 rounded-full capitalize">
+            {exercise.bodyPart || "Body"}
+          </span>
+        </div>
       </div>
-
     </div>
   );
 }
