@@ -43,6 +43,15 @@ const userSchema = new mongoose.Schema({
             carbs: Number,
             fats: Number
         }
+    },
+    dailyLog: {
+        date: { type: Date, default: Date.now }, 
+        calories: { type: Number, default: 0 },
+        macros: {
+            protein: { type: Number, default: 0 },
+            carbs: { type: Number, default: 0 },
+            fats: { type: Number, default: 0 }
+        }
     }
 })
 

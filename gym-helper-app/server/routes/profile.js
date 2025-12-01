@@ -77,4 +77,33 @@ router.patch("/avatar",
   }
 });
 
+router.patch("/nutrition", authenticate, async (req, res) => {
+    try {
+        const { calories, protein, carbs, fats } = req.body;
+        
+        // Simple logic: Update the dailyLog fields
+        // In a real app, you might check if 'dailyLog.date' is today, if not, reset it.
+        const updatedUser = await User.findByIdAndUpdate(
+            req.user.sub,
+            {
+                "dailyLog.calories": calories,
+                "dailyLog.macros.protein": protein,
+                "dailyLog.macros.carbs": carbs,
+                "dailyLog.macros.fats": fats,
+                "dailyLog.date": new Date()
+            },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        res.json({ data: updatedUser });
+    } catch (err) {
+        console.error("Nutrition update failed:", err);
+        res.status(500).json({ error: "Nutrition update failed" });
+    }
+});
+
 export default router;
