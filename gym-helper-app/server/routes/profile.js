@@ -106,4 +106,30 @@ router.patch("/nutrition", authenticate, async (req, res) => {
     }
 });
 
+router.patch("/goals", authenticate, async (req, res) => {
+    try {
+        const { targetCalories, protein, carbs, fats } = req.body;
+        
+        const updatedUser = await User.findByIdAndUpdate(
+            req.user.sub,
+            {
+                "nutrition.targetCalories": targetCalories,
+                "nutrition.macros.protein": protein,
+                "nutrition.macros.carbs": carbs,
+                "nutrition.macros.fats": fats
+            },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        res.json({ data: updatedUser });
+    } catch (err) {
+        console.error("Goals update failed:", err);
+        res.status(500).json({ error: "Goals update failed" });
+    }
+});
+
 export default router;

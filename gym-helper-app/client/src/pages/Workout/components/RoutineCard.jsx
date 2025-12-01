@@ -38,55 +38,6 @@
 
 // GOOD CODE
 
-// import React from 'react';
-// import { FiEdit } from 'react-icons/fi';
-
-// export default function RoutineCard({ routine, onEdit }) {
-//   return (
-//     <div className="bg-white dark:bg-gray-900 rounded-lg p-5 shadow-sm border border-gray-200 dark:border-gray-700 w-full relative">
-      
-//       {/* Header Section */}
-//       <div className="flex justify-between items-start mb-1">
-//         <div>
-//           <h3 className="font-bold text-lg">{routine.name}</h3>
-//           <p className="text-sm text-gray-500 dark:text-gray-400">{routine.description}</p>
-//         </div>
-        
-//         {/* Edit Button */}
-//         <button
-//           className="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 px-3 py-1 rounded flex items-center text-xs transition-colors"
-//           onClick={() => onEdit && onEdit(routine)}
-//         >
-//           <FiEdit className="mr-1" /> Edit
-//         </button>
-//       </div>
-
-//       {/* Days Tags (Optional display, helps user see when it's scheduled) */}
-//       {routine.days && routine.days.length > 0 && (
-//         <div className="mb-3 flex flex-wrap gap-1">
-//             {routine.days.map(day => (
-//                 <span key={day} className="text-[10px] uppercase font-bold text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-900 px-1 rounded">
-//                     {day.substring(0, 3)}
-//                 </span>
-//             ))}
-//         </div>
-//       )}
-
-//       {/* Exercise Tags */}
-//       <div className="flex flex-wrap gap-2 mt-2">
-//         {routine.exercises?.map((ex, idx) => (
-//           <span
-//             key={idx}
-//             className="px-3 py-1 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded text-sm text-gray-700 dark:text-gray-300"
-//           >
-//             {ex}
-//           </span>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
 import React from 'react';
 import { FiEdit, FiTrash } from 'react-icons/fi';
 
