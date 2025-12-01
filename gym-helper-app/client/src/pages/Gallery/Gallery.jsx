@@ -70,8 +70,8 @@ export default function Gallery() {
             <button
                 onClick={() => fileInputRef.current.click()}
                 disabled={isUploading}
-                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-medium transition-colors disabled:opacity-50 shadow-lg shadow-blue-500/20"
-            >
+                className="flex items-center gap-2 bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 px-4 py-2 rounded-full font-medium transition-colors disabled:opacity-50 shadow-lg"
+                >
                 {isUploading ? (
                     <span className="animate-pulse">Uploading...</span>
                 ) : (

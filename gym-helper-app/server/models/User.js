@@ -57,7 +57,8 @@ const userSchema = new mongoose.Schema({
             carbs: { type: Number, default: 0 },
             fats: { type: Number, default: 0 }
         }
-    }
+    },
+    gallery: [galleryItemSchema]
 })
 
 export const User = mongoose.model("user", userSchema);
