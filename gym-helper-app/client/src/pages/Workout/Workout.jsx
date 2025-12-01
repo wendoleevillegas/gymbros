@@ -1019,7 +1019,7 @@
 import React, { useState, useEffect } from "react";
 import RoutineCard from "./components/RoutineCard";
 import ExerciseCard from "./components/ExerciseCard";
-import { HiPlus, HiX, HiRefresh, HiTrash } from "react-icons/hi";
+import { HiPlus, HiX, HiRefresh } from "react-icons/hi";
 
 export default function Workout() {
   const [routines, setRoutines] = useState(() => {
@@ -1046,36 +1046,34 @@ export default function Workout() {
 
   const allDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-  // --- API FETCH LOGIC ---
+  // --- 1. FETCH ALL DATA (The Fix) ---
   const fetchExercisesData = async (forceRefresh = false) => {
     setLoading(true);
     setStatusMsg("Initializing...");
 
-    // *** NEW KEY *** This forces a fresh start
-    const CACHE_KEY = 'gymbros_data_FINAL'; 
+    // We use a NEW key to ensure we don't load the old '10 item' list
+    const CACHE_KEY = 'gymbros_exercises_full_v1'; 
     
-    // 1. Clear old bad cache if we are forcing refresh
-    if (forceRefresh) {
-        sessionStorage.removeItem(CACHE_KEY);
-    }
+    // Clear old cache if user clicked "Refresh"
+    if (forceRefresh) sessionStorage.removeItem(CACHE_KEY);
 
     const cachedData = sessionStorage.getItem(CACHE_KEY);
     
-    // 2. Load from Cache ONLY if it has good data (> 100 items)
-    if (!forceRefresh && cachedData) {
+    // Check if we have valid cached data (must be > 100 items to be valid)
+    if (cachedData) {
       const parsed = JSON.parse(cachedData);
       if (parsed.length > 100) {
           setExercises(parsed);
           setLoading(false);
           setStatusMsg(`Loaded ${parsed.length} exercises from cache.`);
           return;
-      } else {
-          console.log("Cache corrupted (too small). Refetching...");
       }
     }
 
-    // 3. Fetch from API
-    setStatusMsg("Fetching 1300 exercises (this takes a moment)...");
+    // If no cache, fetch from API
+    setStatusMsg("Downloading full database (1300+ items)...");
+    
+    // limit=1300 gets EVERYTHING so we can search locally
     const url = 'https://exercisedb.p.rapidapi.com/exercises?limit=1300';
     const options = {
       method: 'GET',
@@ -1089,7 +1087,7 @@ export default function Workout() {
       const response = await fetch(url, options);
       
       if (response.status === 429) {
-         setStatusMsg("⚠️ API Limit Reached. Wait a moment and click Refresh.");
+         setStatusMsg("API Limit Reached. (Wait 24h or Upgrade Plan)");
          return; 
       }
       
@@ -1098,6 +1096,7 @@ export default function Workout() {
       if (Array.isArray(data)) {
         setStatusMsg(`Success! Loaded ${data.length} exercises.`);
         setExercises(data);
+        // Save to storage so we don't hit the API limit again
         sessionStorage.setItem(CACHE_KEY, JSON.stringify(data));
       } else {
         setStatusMsg("Error: Unexpected API response.");
@@ -1111,25 +1110,26 @@ export default function Workout() {
 
   useEffect(() => { fetchExercisesData(); }, []);
 
-  // --- SMART SEARCH FILTER ---
+  // --- 2. SMART SEARCH LOGIC ---
   const filteredExercises = exercises.filter((ex) => {
     const term = searchTerm.toLowerCase().trim();
     if (!term) return true; 
 
-    // Helper map to translate user terms to API terms
-    const searchMap = {
+    // Mapping: User types "Quads" -> We search "Quadriceps"
+    const muscleMap = {
         "quads": "quadriceps",
         "abs": "waist",
-        "arms": "biceps", // partial match will find biceps/triceps
+        "arms": "biceps", 
         "glutes": "gluteus",
         "lats": "latissimus",
         "back": "back",
-        "chest": "pectorals"
+        "chest": "pectorals",
+        "legs": "upper legs"
     };
 
-    // If user types "quads", we search for "quadriceps". If not in map, use term as is.
-    const effectiveTerm = searchMap[term] || term;
+    const effectiveTerm = muscleMap[term] || term;
 
+    // Search matches Name, Target Muscle, or Body Part
     return (
       (ex.name || "").toLowerCase().includes(term) ||
       (ex.target || "").toLowerCase().includes(effectiveTerm) ||    
@@ -1137,7 +1137,7 @@ export default function Workout() {
     );
   });
 
-  // --- HANDLERS ---
+  // --- Handlers ---
   const openCreateModal = () => { setEditingId(null); setFormName(""); setFormDesc(""); setFormExercises([]); setFormDays([]); setIsModalOpen(true); };
   const openEditModal = (r) => { setEditingId(r.id); setFormName(r.name); setFormDesc(r.description); setFormExercises(r.exercises || []); setFormDays(r.days || []); setIsModalOpen(true); };
   const handleDelete = (id) => { if (window.confirm("Delete split?")) setRoutines(routines.filter((r) => r.id !== id)); };
@@ -1177,21 +1177,33 @@ export default function Workout() {
             </button>
           </div>
           
+          {/* Debug Message */}
           <div className="text-xs text-gray-500 text-right">{statusMsg}</div>
 
+          {/* Search Bar */}
           <div className="flex items-center space-x-2">
-            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="flex-1 p-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" placeholder="Search exercises (e.g. Quads, Back)..." />
+            <input 
+              type="text" 
+              value={searchTerm} 
+              onChange={(e) => setSearchTerm(e.target.value)} 
+              className="flex-1 p-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900" 
+              placeholder="Search exercises (e.g. Quads, Back)..." 
+            />
           </div>
 
+          {/* List of Results */}
           <div className="overflow-y-auto space-y-4 h-[75vh] pr-2 pb-20">
             {loading ? <p className="text-center text-gray-500 mt-10">Loading...</p> : 
-             filteredExercises.length > 0 ? filteredExercises.slice(0, 50).map((ex) => <ExerciseCard key={ex.id} exercise={ex} />) : 
-             <p className="text-center text-gray-500 mt-10">No exercises found.</p>}
+             filteredExercises.length > 0 ? (
+                // Only render first 50 matches to keep app fast
+                filteredExercises.slice(0, 50).map((ex) => <ExerciseCard key={ex.id} exercise={ex} />)
+             ) : (
+             <p className="text-center text-gray-500 mt-10">No exercises found.</p>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Modal - keeping your existing modal structure */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">

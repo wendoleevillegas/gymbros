@@ -11,7 +11,8 @@ export const googleCallback = (req, res) => {
 
         const cookieOptions = {
             httpOnly: true,
-            sameSite: 'Strict',
+            // sameSite: 'Strict',
+            sameSite: 'Lax',
             maxAge: +(process.env.COOKIE_MAX_AGE_MS || 1000 * 60 * 60) // 1 hour
            
         };
