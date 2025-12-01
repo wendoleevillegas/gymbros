@@ -16,7 +16,16 @@ const workoutSchema = new mongoose.Schema({
 })
 
 const workoutTemplateSchema = new mongoose.Schema({
-    exercises: [performedExerciseSchema]
+    id: Number,
+    name: String,
+    description: String,
+    exercises: [String],
+    days: [String]
+})
+
+const weeklyActivitySchema = new mongoose.Schema({
+    day: String,
+    minutes: { type: Number, default: 0 }
 })
 
 const exerciseSchema = new mongoose.Schema({
@@ -58,7 +67,9 @@ const userSchema = new mongoose.Schema({
             fats: { type: Number, default: 0 }
         }
     },
-    gallery: [galleryItemSchema]
+    gallery: [galleryItemSchema],
+    weeklyActivity: [weeklyActivitySchema],
+    
 })
 
 export const User = mongoose.model("user", userSchema);

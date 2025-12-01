@@ -188,4 +188,34 @@ router.delete("/gallery/:id", authenticate, async (req, res) => {
     }
 });
 
+router.patch("/activity", authenticate, async (req, res) => {
+  try {
+    const { WeeklyActivity } = req.body;
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.sub,
+      { weeklyActivity },
+      { new: true }
+    );
+    res.json({ data: updatedUser });
+  } catch (err) {
+    console.error("Activity update failed:", err);
+    res.status(500).json({ error: "Activity update failed" });
+  }
+});
+
+router.patch("/workouts", authenticate, async (req, res) => {
+    try {
+        const { routines } = req.body;
+        const updatedUser = await User.findByIdAndUpdate(
+            req.user.sub,
+            { workoutTemplates: routines },
+            { new: true }
+        );
+        res.json({ data: updatedUser });
+    } catch (err) {
+        console.error("Workout update failed:", err);
+        res.status(500).json({ error: "Update failed" });
+    }
+});
+
 export default router;
