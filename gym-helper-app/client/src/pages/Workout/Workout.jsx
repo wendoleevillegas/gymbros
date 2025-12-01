@@ -78,7 +78,7 @@
 //   );
 // }
 
-// GOOD CODE
+// WENDOLEE'S CODE
 
 // import React, { useState, useEffect } from "react";
 // import RoutineCard from "./components/RoutineCard";
@@ -92,7 +92,6 @@
 //     return saved
 //       ? JSON.parse(saved)
 //       : [
-//           // Default initial state (optional, can be empty)
 //           {
 //             id: 1,
 //             name: "Legs",
@@ -110,7 +109,7 @@
 
 //   // --- Modal State ---
 //   const [isModalOpen, setIsModalOpen] = useState(false);
-//   const [editingId, setEditingId] = useState(null); // If null, we are creating
+//   const [editingId, setEditingId] = useState(null); 
 
 //   // --- Form State ---
 //   const [formName, setFormName] = useState("");
@@ -119,7 +118,6 @@
 //   const [exerciseInput, setExerciseInput] = useState("");
 //   const [formDays, setFormDays] = useState([]);
 
-//   // Available days for the "Tagging" feature
 //   const allDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 //   // --- Explore Data (Static) ---
@@ -149,7 +147,14 @@
 //     setIsModalOpen(true);
 //   };
 
-//   // Tag Logic: Add Exercise
+//   // --- NEW: Delete Handler ---
+//   const handleDelete = (id) => {
+//     if (window.confirm("Are you sure you want to delete this split?")) {
+//       const updatedRoutines = routines.filter((r) => r.id !== id);
+//       setRoutines(updatedRoutines);
+//     }
+//   };
+
 //   const handleAddExerciseTag = (e) => {
 //     if (e.key === "Enter" && exerciseInput.trim() !== "") {
 //       e.preventDefault();
@@ -160,12 +165,10 @@
 //     }
 //   };
 
-//   // Tag Logic: Remove Exercise
 //   const removeExerciseTag = (tag) => {
 //     setFormExercises(formExercises.filter((t) => t !== tag));
 //   };
 
-//   // Tag Logic: Toggle Day
 //   const toggleDayTag = (day) => {
 //     if (formDays.includes(day)) {
 //       setFormDays(formDays.filter((d) => d !== day));
@@ -178,7 +181,7 @@
 //     e.preventDefault();
 
 //     const newRoutine = {
-//       id: editingId || Date.now(), // Use existing ID or generate new one
+//       id: editingId || Date.now(), 
 //       name: formName,
 //       description: formDesc,
 //       exercises: formExercises,
@@ -186,10 +189,8 @@
 //     };
 
 //     if (editingId) {
-//       // Update existing
 //       setRoutines(routines.map((r) => (r.id === editingId ? newRoutine : r)));
 //     } else {
-//       // Create new
 //       setRoutines([...routines, newRoutine]);
 //     }
 
@@ -217,7 +218,12 @@
 
 //           <div className="overflow-y-auto space-y-4 h-[75vh] pr-2 pb-20">
 //             {routines.map((r) => (
-//               <RoutineCard key={r.id} routine={r} onEdit={openEditModal} />
+//               <RoutineCard 
+//                 key={r.id} 
+//                 routine={r} 
+//                 onEdit={openEditModal} 
+//                 onDelete={handleDelete} // Passed the delete handler here
+//               />
 //             ))}
 //             {routines.length === 0 && (
 //               <p className="text-gray-500 italic">No splits created yet.</p>
@@ -379,7 +385,6 @@ export default function Workout() {
         ];
   });
 
-  // Save to LocalStorage whenever routines change
   useEffect(() => {
     localStorage.setItem("mySplits", JSON.stringify(routines));
   }, [routines]);
@@ -395,17 +400,34 @@ export default function Workout() {
   const [exerciseInput, setExerciseInput] = useState("");
   const [formDays, setFormDays] = useState([]);
 
-  const allDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-  // --- Explore Data (Static) ---
+  // --- Explore & Search State ---
+  const [searchTerm, setSearchTerm] = useState(""); // 1. State for search input
+  
+  // 2. Updated data to include keywords like "Quads" for better search results
   const [exercises] = useState([
-    { id: 1, name: "Barbell Squat", muscleGroup: "Legs", duration: "3x8" },
-    { id: 2, name: "Dumbbell Bench Press", muscleGroup: "Chest", duration: "3x10" },
-    { id: 3, name: "Pull Up", muscleGroup: "Back", duration: "3xMax" },
+    { id: 1, name: "Barbell Squat", muscleGroup: "Legs (Quads)" },
+    { id: 2, name: "Dumbbell Bench Press", muscleGroup: "Chest" },
+    { id: 3, name: "Pull Up", muscleGroup: "Back" },
+    { id: 4, name: "Leg Extension", muscleGroup: "Legs (Quads)" },
+    { id: 5, name: "Romanian Deadlift", muscleGroup: "Legs (Hamstrings)" },
+    { id: 6, name: "Overhead Press", muscleGroup: "Shoulders" },
+    { id: 7, name: "Bicep Curl", muscleGroup: "Arms (Biceps)" },
+    { id: 8, name: "Tricep Extension", muscleGroup: "Arms (Triceps)" },
   ]);
 
-  // --- Handlers ---
+  const allDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
+  // --- Filter Logic ---
+  // Returns exercises where name OR muscleGroup matches the search term
+  const filteredExercises = exercises.filter((ex) => {
+    const term = searchTerm.toLowerCase();
+    return (
+      ex.name.toLowerCase().includes(term) ||
+      ex.muscleGroup.toLowerCase().includes(term)
+    );
+  });
+
+  // --- Handlers (Existing) ---
   const openCreateModal = () => {
     setEditingId(null);
     setFormName("");
@@ -424,7 +446,6 @@ export default function Workout() {
     setIsModalOpen(true);
   };
 
-  // --- NEW: Delete Handler ---
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this split?")) {
       const updatedRoutines = routines.filter((r) => r.id !== id);
@@ -456,7 +477,6 @@ export default function Workout() {
 
   const handleSave = (e) => {
     e.preventDefault();
-
     const newRoutine = {
       id: editingId || Date.now(), 
       name: formName,
@@ -470,12 +490,7 @@ export default function Workout() {
     } else {
       setRoutines([...routines, newRoutine]);
     }
-
     setIsModalOpen(false);
-  };
-
-  const onLearnMore = (exercise) => {
-    alert(`${exercise.name} — Learn more`);
   };
 
   return (
@@ -499,7 +514,7 @@ export default function Workout() {
                 key={r.id} 
                 routine={r} 
                 onEdit={openEditModal} 
-                onDelete={handleDelete} // Passed the delete handler here
+                onDelete={handleDelete} 
               />
             ))}
             {routines.length === 0 && (
@@ -513,21 +528,32 @@ export default function Workout() {
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold">Explore</h2>
           </div>
+          
+          {/* Search Input */}
           <div className="flex items-center space-x-2">
             <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="flex-1 p-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900"
-              placeholder="Search exercises..."
+              placeholder="Search exercises (e.g. Quads)..."
             />
           </div>
+
+          {/* Filtered Exercise List */}
           <div className="overflow-y-auto space-y-4 h-[75vh] pr-2 pb-20">
-            {exercises.map((ex) => (
-              <ExerciseCard key={ex.id} exercise={ex} onLearnMore={onLearnMore} />
-            ))}
+            {filteredExercises.length > 0 ? (
+              filteredExercises.map((ex) => (
+                <ExerciseCard key={ex.id} exercise={ex} />
+              ))
+            ) : (
+              <p className="text-gray-500 text-center mt-10">No exercises found.</p>
+            )}
           </div>
         </div>
       </div>
 
-      {/* --- Create/Edit Modal --- */}
+      {/* --- Create/Edit Modal (Existing) --- */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
@@ -536,7 +562,6 @@ export default function Workout() {
             </h2>
 
             <form onSubmit={handleSave} className="flex flex-col gap-4">
-              {/* Name */}
               <div className="flex flex-col gap-1">
                 <label className="font-semibold text-sm">Workout Name:</label>
                 <input
@@ -549,7 +574,6 @@ export default function Workout() {
                 />
               </div>
 
-              {/* Description */}
               <div className="flex flex-col gap-1">
                 <label className="font-semibold text-sm">Workout Description:</label>
                 <input
@@ -561,7 +585,6 @@ export default function Workout() {
                 />
               </div>
 
-              {/* Exercises Tags */}
               <div className="flex flex-col gap-1">
                 <label className="font-semibold text-sm">Workout Exercises:</label>
                 <div className="flex flex-wrap gap-2 mb-2 p-2 border border-gray-300 dark:border-gray-700 rounded min-h-[50px] dark:bg-black">
@@ -592,7 +615,6 @@ export default function Workout() {
                 <span className="text-xs text-gray-500">Press Enter to add a tag</span>
               </div>
 
-              {/* Day Tags */}
               <div className="flex flex-col gap-1">
                 <label className="font-semibold text-sm">Workout Day(s):</label>
                 <div className="flex flex-wrap gap-2">
@@ -616,7 +638,6 @@ export default function Workout() {
                 </div>
               </div>
 
-              {/* Actions */}
               <div className="flex justify-end gap-3 mt-4">
                 <button
                   type="button"
