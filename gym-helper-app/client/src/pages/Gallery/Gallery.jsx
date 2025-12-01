@@ -64,7 +64,7 @@ export default function Gallery() {
     new Date(b.date) - new Date(a.date)
   ) || [];
 
-  return (
+return (
     <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white p-6 pb-24">
       {/* --- Header --- */}
       <div className="flex items-center justify-between mb-8 sticky top-0 bg-white/80 dark:bg-black/80 backdrop-blur-sm p-2 z-10">
@@ -91,7 +91,7 @@ export default function Gallery() {
                 onClick={() => fileInputRef.current.click()}
                 disabled={isUploading}
                 className="flex items-center gap-2 bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 px-4 py-2 rounded-full font-medium transition-colors disabled:opacity-50 shadow-lg"
-                >
+            >
                 {isUploading ? (
                     <span className="animate-pulse">Uploading...</span>
                 ) : (
@@ -112,16 +112,27 @@ export default function Gallery() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedGallery.map((item, index) => (
-            <div key={index} className="group relative break-inside-avoid">
-              <div className="overflow-hidden rounded-2xl shadow-md bg-gray-100 dark:bg-gray-900 aspect-[3/4]">
+          {sortedGallery.map((item) => (
+            <div key={item._id} className="group relative break-inside-avoid">
+              {/* Added 'relative' class below so the button can position itself */}
+              <div className="overflow-hidden rounded-2xl shadow-md bg-gray-100 dark:bg-gray-900 aspect-[3/4] relative">
                 <img
                   src={item.url}
-                  alt={`Progress ${index}`}
+                  alt="Progress"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
+                
+                {/* --- DELETE BUTTON --- */}
+                <button
+                    onClick={() => handleDelete(item._id)}
+                    className="absolute top-3 right-3 p-2 bg-black/50 hover:bg-red-600 text-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm z-10"
+                    title="Delete Photo"
+                >
+                    <FiTrash2 className="w-5 h-5" />
+                </button>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent pt-10 rounded-b-2xl">
+              
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent pt-10 rounded-b-2xl pointer-events-none">
                 <p className="text-white text-sm font-medium">
                   {new Date(item.date).toLocaleDateString(undefined, {
                     year: 'numeric',
